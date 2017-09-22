@@ -2,7 +2,7 @@ import sys
 
 required_verion = (3,)
 if sys.version_info < required_verion:
-    raise ValueError('plt_tools needs at least python {}! You are trying to install it under python {}'.format('.'.join(str(i) for i in required_verion), sys.version))
+    raise ValueError('plt-tools needs at least python {}! You are trying to install it under python {}'.format('.'.join(str(i) for i in required_verion), sys.version))
 
 # import ez_setup
 # ez_setup.use_setuptools()
@@ -18,7 +18,7 @@ setup(
     description="Some of my favorite matplotlib recipes cooked up into a package",
     license="MIT",
     keywords="matplotlib",
-    url="https://github.com/hagne/plt_tools",
+    url="https://github.com/hagne/plt-tools",
     # install_requires=['numpy','pandas'],
     # extras_require={'plotting': ['matplotlib'],
     #                 'testing': ['scipy']},
