@@ -1,5 +1,39 @@
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes as _inset_axes
+from mpl_toolkits.axes_grid1 import make_axes_locatable as _make_axes_locatable
 
+def colorbar_axis_split_off(mappable, ax, position = 'right', size = '5%', pad = 0.1, cb_kwargs = None):
+    """
+    Splits of a section of the axis and uses it as the colorbar. This way the colorbar will have the same hight or width
+    as the original axis. It also makes it easier to sey where the colorbar goes if the figure contains multiple axes.
+
+    Parameters
+    ----------
+    mappable: mappable instance
+        e.g. what is returned by imshow() or pcolormesh()
+    ax: AxesSubplot
+    position: string (['right'], 'left', 'bottom', 'top')
+        Where to split off the section of the axis
+    size: axes_grid.axes_size compatible
+        e.g. '5%'
+    pad: float
+        distance of split off from rest of axis
+    cb_kwargs: dict [None]
+        pass colorbar key word arguments in a dictionary here
+
+    Returns
+    -------
+    matplotlib.colorbar.Colorbar
+    matplotlib.axes._axes.Axes
+        This is the axis which was split off and which contains the colorbar
+
+    """
+    f = ax.get_figure()
+    divider = _make_axes_locatable(ax)
+    cax = divider.append_axes(position, size=size, pad=pad)
+    if not cb_kwargs:
+        cb_kwargs = {}
+    cb = f.colorbar(mappable, cax=cax, **cb_kwargs)
+    return cb, cax
 
 def colorbar_inside_plot(ax, mappable, extend = ('17%', '60%'), extend_cb = ('25%', '90%'), loc = 7, loc_cb = 6, color_bg = [1, 1, 1, 0.5], colorbar_kw = {}):
     """

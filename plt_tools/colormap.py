@@ -1,5 +1,7 @@
 import numpy as _np
-from matplotlib.colors import LinearSegmentedColormap
+from matplotlib.colors import LinearSegmentedColormap as _LinearSegmentedColormap
+
+import plt_tools._my_colormaps as my_colormaps
 
 def creat_cmap(colors = None, color_range = 1, norm='linear', log_min=0.1, reverse=False):
     """
@@ -66,6 +68,6 @@ def creat_cmap(colors = None, color_range = 1, norm='linear', log_min=0.1, rever
              'blue': b
              }
 
-    hag_cmap = LinearSegmentedColormap('hag_cmap', cdict)
+    hag_cmap = _LinearSegmentedColormap('hag_cmap', cdict)
     hag_cmap.set_bad('black')
     return hag_cmap
