@@ -2,13 +2,34 @@ import colorsys as _colorsys
 import numpy as _np
 import matplotlib.pylab as _plt
 
+
+def _hex_to_rgb(value):
+    value = value.lstrip('#')
+    lv = len(value)
+    rgb = _np.array([int(value[i:i + lv // 3], 16) for i in range(0, lv, lv // 3)]) / 255
+    return rgb
+
+
+def _rgb_to_hex(rgb):
+    return '#%02x%02x%02x' % rgb
+
+
 class Color(object):
     def __init__(self, color, model='hsv', color_scale = 1):
+        """
+        Parameters
+        ----------
+        color: depending ond model
+        model: (['hsv'], 'rgb', 'hex')
+        color_scale:
+            ignored when model == 'hex'
+        """
         if type(color).__name__ in ['list', 'tuple']:
             color = _np.array(color)
 
-        color = color.astype(_np.float)
-        color /= color_scale
+        if model != 'hex':
+            color = color.astype(_np.float)
+            color /= color_scale
 
         if len(color) == 4:
             color, alpha = color[:-1], color[-1]
@@ -18,8 +39,12 @@ class Color(object):
         if model == 'rgb':
             color = _np.array(_colorsys.rgb_to_hsv(*color))
 
-        if model == 'hls':
+        elif model == 'hls':
             rgb = _colorsys.hls_to_rgb(*color)
+            color = _np.array(_colorsys.rgb_to_hsv(*rgb))
+
+        elif model == 'hex':
+            rgb = _hex_to_rgb(color)
             color = _np.array(_colorsys.rgb_to_hsv(*rgb))
 
         self._hsv = color
