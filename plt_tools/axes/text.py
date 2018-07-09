@@ -23,6 +23,8 @@ def set_subplots_labels(a, pos = (0.06, 0.9), cycle_start = 0, bbox = {'fc':[1,1
     texts = []
     boxes = []
     for e, at in enumerate(a):
+        if at == None:
+            continue
         txtat = at.text(pos[0], pos[1], abc[e + cycle_start], fontsize='large', transform = at.transAxes, bbox = bbox)
         bbp=txtat.get_bbox_patch()
         texts.append(txtat)
