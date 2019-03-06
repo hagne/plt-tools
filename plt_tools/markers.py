@@ -33,6 +33,11 @@ def add_position_of_interest2axes(ax, x = None, y = None, text = None, text_pos 
         col = g.get_color()
         lw = g.get_linewidth()
 
+    if y and not x:
+        g = ax.axhline(y=y, xmin=0, xmax=1, **kwargs)
+        col = g.get_color()
+        lw = g.get_linewidth()
+
     if text:
         # if 'bbox' not in annotate_kwargs:
         #     annotate_kwargs['bbox'] = dict(boxstyle="round,pad=0.3", fc=[1, 1, 1, 0.8], ec=toi['color'], lw=1)
