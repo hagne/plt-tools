@@ -107,7 +107,7 @@ def plot_gradiant_color(x, y, z = None, resample = 1, ax = None, colorbar = True
 
     segments = make_segments(xv, yv)
     lc = _mcoll.LineCollection(segments,
-                               # colors = z,
+                               # colors = z, # for this to work colors would need to be generated first ... clim would not work anymore
                                array=z,
                                # norm=_plt.Normalize(0.0, 1.0),
                                **lc_kwargs)
