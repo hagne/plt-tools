@@ -8,8 +8,9 @@ def colorbar_axis_split_off(mappable, ax, position = 'right', size = '5%', pad =
 
     Parameters
     ----------
-    mappable: mappable instance
-        e.g. what is returned by imshow() or pcolormesh()
+    mappable: mappable instance or None
+        e.g. what is returned by imshow() or pcolormesh(). If None a pice of axes will still be cut off but no colorbar
+        is plotted. This is usefull if you share axes and you want to apply to change to all axes.
     ax: AxesSubplot
     position: string (['right'], 'left', 'bottom', 'top')
         Where to split off the section of the axis
@@ -30,8 +31,14 @@ def colorbar_axis_split_off(mappable, ax, position = 'right', size = '5%', pad =
     f = ax.get_figure()
     divider = _make_axes_locatable(ax)
     cax = divider.append_axes(position, size=size, pad=pad)
+    if isinstance(mappable, type(None)):
+        cax.axis('off')
+        return None, cax
     if not cb_kwargs:
         cb_kwargs = {}
+    if position in ['top', 'bottom']:
+        if 'orientation' not in cb_kwargs.keys():
+            cb_kwargs['orientation'] = 'horizontal'
     cb = f.colorbar(mappable, cax=cax, **cb_kwargs)
     return cb, cax
 
