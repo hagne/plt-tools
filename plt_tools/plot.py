@@ -21,7 +21,7 @@ def custom_new_gc(self):
 _RendererBase.new_gc = _types.MethodType(custom_new_gc, _RendererBase)
 ##########
 
-def plot_gradiant_color(x, y, z = None, resample = 1, ax = None, colorbar = True, lc_kwargs = None):
+def plot_gradiant_color(x, y, z = None, resample = 1, ax = None, colorbar = True, rescale= True, lc_kwargs = None):
     """ Plots a line given by x and y where the color changes along the line either gradually or according
     to z.
 
@@ -39,6 +39,8 @@ def plot_gradiant_color(x, y, z = None, resample = 1, ax = None, colorbar = True
         When there are too few data points the color resolution might be ugly. Resample will change the resolution.
     ax: matplotlib.axes._subplots.AxesSubplot instance
         If plotting on an existing axes is desired.
+    rescale: bool
+        if to recalculate limits of axes
     colorbar: bool
         If a colorbar is supposed to be plottet
     lc_kwargs: dict
@@ -115,8 +117,9 @@ def plot_gradiant_color(x, y, z = None, resample = 1, ax = None, colorbar = True
     ax.add_collection(lc)
     xnn = xv[~ _np.isnan(xv)]
     ynn = yv[~ _np.isnan(yv)]
-    ax.set_ylim((ynn.min(), ynn.max()))
-    ax.set_xlim((xnn.min(), xnn.max()))
+    if rescale:
+        ax.set_ylim((ynn.min(), ynn.max()))
+        ax.set_xlim((xnn.min(), xnn.max()))
 
     if colorbar:
         colorbar = fig.colorbar(lc)

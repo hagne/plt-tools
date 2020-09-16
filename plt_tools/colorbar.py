@@ -1,6 +1,8 @@
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes as _inset_axes
 from mpl_toolkits.axes_grid1 import make_axes_locatable as _make_axes_locatable
 
+
+
 def colorbar_axis_split_off(mappable, ax, position = 'right', size = '5%', pad = 0.1, cb_kwargs = None):
     """
     Splits of a section of the axis and uses it as the colorbar. This way the colorbar will have the same hight or width
@@ -90,3 +92,4 @@ def colorbar_inside_plot(ax, mappable, extend = ('17%', '60%'), extend_cb = ('25
     f = ax.get_figure()
     cb=f.colorbar(mappable, cax=ax_cb, **colorbar_kw) #make colorbar
     return cb, ax_cb, cbbox
+
