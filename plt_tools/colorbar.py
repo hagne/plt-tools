@@ -82,10 +82,10 @@ def colorbar_inside_plot(ax, mappable, extend = ('17%', '60%'), extend_cb = ('25
                       labeltop='off',
                       labelright='off',
                       labelbottom='off')                        # remove ticks
-
+    
     cbbox.set_facecolor(color_bg)                            # make transparent
     cbbox.grid(False)
-
+    cbbox.set_axis_off() # there where still some ticklabel showing up, even with the tickparams set above?!?
     # second insert that will be filled by the colorbar
     # extend_cb = ('25%', '90%')
     ax_cb = _inset_axes(cbbox, extend_cb[0], extend_cb[1], loc = loc_cb)
